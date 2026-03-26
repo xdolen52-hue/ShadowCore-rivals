@@ -389,7 +389,7 @@ local function CreateFoldableSection(parent, title, icon)
     return contentHolder, header
 end
 
--- ==================== INFO ОКНО (исправленное) ====================
+-- ==================== INFO ОКНО (упрощённое, без ошибок) ====================
 local infoGui = nil
 local function ShowInfoWindow()
     if infoGui then
@@ -449,14 +449,16 @@ local function ShowInfoWindow()
     local scrollFrame = Instance.new("ScrollingFrame")
     scrollFrame.Size = UDim2.new(1, -20, 1, -65)
     scrollFrame.Position = UDim2.new(0, 10, 0, 60)
-    scrollFrame.BackgroundTransparency = 1
-    scrollFrame.BorderSizePixel = 0
+    scrollFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+    scrollFrame.BackgroundTransparency = 0.3
+    scrollFrame.BorderSizePixel = 1
+    scrollFrame.BorderColor3 = Color3.fromRGB(100, 100, 130)
     scrollFrame.ScrollBarThickness = 10
     scrollFrame.Parent = frame
 
     local textLabel = Instance.new("TextLabel")
     textLabel.Size = UDim2.new(1, -20, 0, 0)
-    textLabel.Position = UDim2.new(0, 10, 0, 0)
+    textLabel.Position = UDim2.new(0, 10, 0, 5)
     textLabel.Text = [[
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                           SHADOWCORE v1.0                                    ║
@@ -500,19 +502,10 @@ local function ShowInfoWindow()
     textLabel.TextWrapped = true
     textLabel.TextXAlignment = Enum.TextXAlignment.Left
     textLabel.Parent = scrollFrame
-
-    -- Вычисляем высоту текста
-    local function updateTextHeight()
-        local textBounds = textLabel.TextBounds
-        textLabel.Size = UDim2.new(1, -20, 0, textBounds.Y + 40)
-        scrollFrame.CanvasSize = UDim2.new(0, 0, 0, textBounds.Y + 60)
-    end
-    updateTextHeight()
-    textLabel:GetPropertyChangedSignal("Text"):Connect(updateTextHeight)
     
-    -- Принудительное обновление после загрузки
-    task.wait(0.1)
-    updateTextHeight()
+    -- Устанавливаем высоту текста и размер холста для прокрутки
+    textLabel.Size = UDim2.new(1, -20, 0, 850)
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 900)
 
     local dragStart, frameStart
     titleBar.InputBegan:Connect(function(input)
