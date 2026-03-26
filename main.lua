@@ -389,7 +389,7 @@ local function CreateFoldableSection(parent, title, icon)
     return contentHolder, header
 end
 
--- ==================== INFO ОКНО ====================
+-- ==================== INFO ОКНО (с прокруткой и большим шрифтом) ====================
 local infoGui = nil
 local function ShowInfoWindow()
     if infoGui then
@@ -403,8 +403,8 @@ local function ShowInfoWindow()
     infoGui.Parent = game:GetService("CoreGui")
     
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 500, 0, 500)
-    frame.Position = UDim2.new(0.5, -250, 0.5, -250)
+    frame.Size = UDim2.new(0, 550, 0, 580)
+    frame.Position = UDim2.new(0.5, -275, 0.5, -290)
     frame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
     frame.BackgroundTransparency = 0.05
     frame.BorderSizePixel = 2
@@ -414,40 +414,50 @@ local function ShowInfoWindow()
     frame.Parent = infoGui
     
     local titleBar = Instance.new("Frame")
-    titleBar.Size = UDim2.new(1, 0, 0, 40)
+    titleBar.Size = UDim2.new(1, 0, 0, 45)
     titleBar.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
     titleBar.BackgroundTransparency = 0.2
     titleBar.BorderSizePixel = 0
     titleBar.Parent = frame
     
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, -40, 1, 0)
-    title.Position = UDim2.new(0, 10, 0, 0)
+    title.Size = UDim2.new(1, -50, 1, 0)
+    title.Position = UDim2.new(0, 15, 0, 0)
     title.Text = "SHADOWCORE v1.0"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.BackgroundTransparency = 1
     title.Font = Enum.Font.GothamBold
-    title.TextSize = 16
+    title.TextSize = 20
     title.Parent = titleBar
     
     local closeInfo = Instance.new("TextButton")
-    closeInfo.Size = UDim2.new(0, 40, 1, 0)
-    closeInfo.Position = UDim2.new(1, -40, 0, 0)
+    closeInfo.Size = UDim2.new(0, 45, 1, 0)
+    closeInfo.Position = UDim2.new(1, -45, 0, 0)
     closeInfo.Text = "✕"
     closeInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeInfo.BackgroundTransparency = 1
     closeInfo.Font = Enum.Font.GothamBold
-    closeInfo.TextSize = 18
+    closeInfo.TextSize = 22
     closeInfo.Parent = titleBar
     closeInfo.MouseButton1Click:Connect(function()
         infoGui:Destroy()
         infoGui = nil
     end)
     
+    -- Скроллинг фрейм для текста
+    local scrollFrame = Instance.new("ScrollingFrame")
+    scrollFrame.Size = UDim2.new(1, -20, 1, -60)
+    scrollFrame.Position = UDim2.new(0, 10, 0, 55)
+    scrollFrame.BackgroundTransparency = 1
+    scrollFrame.BorderSizePixel = 0
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+    scrollFrame.ScrollBarThickness = 8
+    scrollFrame.Parent = frame
+    
     local textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(1, -20, 1, -60)
-    textLabel.Position = UDim2.new(0, 10, 0, 50)
+    textLabel.Size = UDim2.new(1, -15, 0, 0)
+    textLabel.Position = UDim2.new(0, 5, 0, 0)
     textLabel.Text = [[
 ╔══════════════════════════════════════════════════════════════╗
 ║                    SHADOWCORE v1.0                          ║
@@ -484,13 +494,22 @@ local function ShowInfoWindow()
 
 ⭐ ShadowCore – Ваш надёжный выбор для доминирования в Rivals!
 ]]
-    textLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+    textLabel.TextColor3 = Color3.fromRGB(235, 235, 235)
     textLabel.BackgroundTransparency = 1
     textLabel.Font = Enum.Font.Gotham
-    textLabel.TextSize = 11
+    textLabel.TextSize = 14
     textLabel.TextWrapped = true
     textLabel.TextXAlignment = Enum.TextXAlignment.Left
-    textLabel.Parent = frame
+    textLabel.Parent = scrollFrame
+    
+    -- Вычисляем высоту текста
+    local function updateTextHeight()
+        local textBounds = textLabel.TextBounds
+        textLabel.Size = UDim2.new(1, -15, 0, textBounds.Y + 20)
+        scrollFrame.CanvasSize = UDim2.new(0, 0, 0, textBounds.Y + 30)
+    end
+    updateTextHeight()
+    textLabel:GetPropertyChangedSignal("Text"):Connect(updateTextHeight)
     
     local dragStart, frameStart
     titleBar.InputBegan:Connect(function(input)
@@ -669,7 +688,7 @@ end)
 
 updateCanvas()
 
--- ==================== ОСНОВНЫЕ ФУНКЦИИ ====================
+-- ==================== ОСНОВНЫЕ ФУНКЦИИ (без изменений) ====================
 
 local function IsVisible(part)
     if not part then return false end
