@@ -403,8 +403,8 @@ local function ShowInfoWindow()
     infoGui.Parent = game:GetService("CoreGui")
 
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 900, 0, 750)
-    frame.Position = UDim2.new(0.5, -450, 0.5, -375)
+    frame.Size = UDim2.new(0, 750, 0, 650)
+    frame.Position = UDim2.new(0.5, -375, 0.5, -325)
     frame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
     frame.BackgroundTransparency = 0.05
     frame.BorderSizePixel = 2
@@ -414,7 +414,7 @@ local function ShowInfoWindow()
     frame.Parent = infoGui
 
     local titleBar = Instance.new("Frame")
-    titleBar.Size = UDim2.new(1, 0, 0, 55)
+    titleBar.Size = UDim2.new(1, 0, 0, 50)
     titleBar.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
     titleBar.BackgroundTransparency = 0.2
     titleBar.BorderSizePixel = 0
@@ -428,17 +428,17 @@ local function ShowInfoWindow()
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.BackgroundTransparency = 1
     title.Font = Enum.Font.GothamBold
-    title.TextSize = 28
+    title.TextSize = 24
     title.Parent = titleBar
 
     local closeInfo = Instance.new("TextButton")
-    closeInfo.Size = UDim2.new(0, 55, 1, 0)
-    closeInfo.Position = UDim2.new(1, -55, 0, 0)
+    closeInfo.Size = UDim2.new(0, 50, 1, 0)
+    closeInfo.Position = UDim2.new(1, -50, 0, 0)
     closeInfo.Text = "✕"
     closeInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeInfo.BackgroundTransparency = 1
     closeInfo.Font = Enum.Font.GothamBold
-    closeInfo.TextSize = 28
+    closeInfo.TextSize = 24
     closeInfo.Parent = titleBar
     closeInfo.MouseButton1Click:Connect(function()
         infoGui:Destroy()
@@ -447,11 +447,11 @@ local function ShowInfoWindow()
 
     -- Скроллинг фрейм для текста
     local scrollFrame = Instance.new("ScrollingFrame")
-    scrollFrame.Size = UDim2.new(1, -20, 1, -70)
-    scrollFrame.Position = UDim2.new(0, 10, 0, 65)
+    scrollFrame.Size = UDim2.new(1, -20, 1, -65)
+    scrollFrame.Position = UDim2.new(0, 10, 0, 60)
     scrollFrame.BackgroundTransparency = 1
     scrollFrame.BorderSizePixel = 0
-    scrollFrame.ScrollBarThickness = 12
+    scrollFrame.ScrollBarThickness = 10
     scrollFrame.Parent = frame
 
     local textLabel = Instance.new("TextLabel")
@@ -496,7 +496,7 @@ local function ShowInfoWindow()
     textLabel.TextColor3 = Color3.fromRGB(245, 245, 245)
     textLabel.BackgroundTransparency = 1
     textLabel.Font = Enum.Font.Gotham
-    textLabel.TextSize = 24
+    textLabel.TextSize = 20
     textLabel.TextWrapped = true
     textLabel.TextXAlignment = Enum.TextXAlignment.Left
     textLabel.Parent = scrollFrame
