@@ -389,7 +389,7 @@ local function CreateFoldableSection(parent, title, icon)
     return contentHolder, header
 end
 
--- ==================== INFO ОКНО (с прокруткой и большим шрифтом) ====================
+-- ==================== INFO ОКНО (с прокруткой и шрифтом 24) ====================
 local infoGui = nil
 local function ShowInfoWindow()
     if infoGui then
@@ -403,8 +403,8 @@ local function ShowInfoWindow()
     infoGui.Parent = game:GetService("CoreGui")
     
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 550, 0, 580)
-    frame.Position = UDim2.new(0.5, -275, 0.5, -290)
+    frame.Size = UDim2.new(0, 800, 0, 700)
+    frame.Position = UDim2.new(0.5, -400, 0.5, -350)
     frame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
     frame.BackgroundTransparency = 0.05
     frame.BorderSizePixel = 2
@@ -414,31 +414,31 @@ local function ShowInfoWindow()
     frame.Parent = infoGui
     
     local titleBar = Instance.new("Frame")
-    titleBar.Size = UDim2.new(1, 0, 0, 45)
+    titleBar.Size = UDim2.new(1, 0, 0, 55)
     titleBar.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
     titleBar.BackgroundTransparency = 0.2
     titleBar.BorderSizePixel = 0
     titleBar.Parent = frame
     
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, -50, 1, 0)
-    title.Position = UDim2.new(0, 15, 0, 0)
+    title.Size = UDim2.new(1, -60, 1, 0)
+    title.Position = UDim2.new(0, 20, 0, 0)
     title.Text = "SHADOWCORE v1.0"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.BackgroundTransparency = 1
     title.Font = Enum.Font.GothamBold
-    title.TextSize = 20
+    title.TextSize = 28
     title.Parent = titleBar
     
     local closeInfo = Instance.new("TextButton")
-    closeInfo.Size = UDim2.new(0, 45, 1, 0)
-    closeInfo.Position = UDim2.new(1, -45, 0, 0)
+    closeInfo.Size = UDim2.new(0, 55, 1, 0)
+    closeInfo.Position = UDim2.new(1, -55, 0, 0)
     closeInfo.Text = "✕"
     closeInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeInfo.BackgroundTransparency = 1
     closeInfo.Font = Enum.Font.GothamBold
-    closeInfo.TextSize = 22
+    closeInfo.TextSize = 28
     closeInfo.Parent = titleBar
     closeInfo.MouseButton1Click:Connect(function()
         infoGui:Destroy()
@@ -447,22 +447,22 @@ local function ShowInfoWindow()
     
     -- Скроллинг фрейм для текста
     local scrollFrame = Instance.new("ScrollingFrame")
-    scrollFrame.Size = UDim2.new(1, -20, 1, -60)
-    scrollFrame.Position = UDim2.new(0, 10, 0, 55)
+    scrollFrame.Size = UDim2.new(1, -20, 1, -70)
+    scrollFrame.Position = UDim2.new(0, 10, 0, 65)
     scrollFrame.BackgroundTransparency = 1
     scrollFrame.BorderSizePixel = 0
     scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-    scrollFrame.ScrollBarThickness = 8
+    scrollFrame.ScrollBarThickness = 12
     scrollFrame.Parent = frame
     
     local textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(1, -15, 0, 0)
-    textLabel.Position = UDim2.new(0, 5, 0, 0)
+    textLabel.Size = UDim2.new(1, -20, 0, 0)
+    textLabel.Position = UDim2.new(0, 10, 0, 0)
     textLabel.Text = [[
-╔══════════════════════════════════════════════════════════════╗
-║                    SHADOWCORE v1.0                          ║
-║              Professional Script for Rivals                 ║
-╚══════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           SHADOWCORE v1.0                                    ║
+║                     Professional Script for Rivals                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
 
 🔥 ФУНКЦИИ:
    • Aimbot (бинт T) – наведение на голову/торс с плавностью
@@ -494,10 +494,10 @@ local function ShowInfoWindow()
 
 ⭐ ShadowCore – Ваш надёжный выбор для доминирования в Rivals!
 ]]
-    textLabel.TextColor3 = Color3.fromRGB(235, 235, 235)
+    textLabel.TextColor3 = Color3.fromRGB(245, 245, 245)
     textLabel.BackgroundTransparency = 1
     textLabel.Font = Enum.Font.Gotham
-    textLabel.TextSize = 14
+    textLabel.TextSize = 24
     textLabel.TextWrapped = true
     textLabel.TextXAlignment = Enum.TextXAlignment.Left
     textLabel.Parent = scrollFrame
@@ -505,8 +505,8 @@ local function ShowInfoWindow()
     -- Вычисляем высоту текста
     local function updateTextHeight()
         local textBounds = textLabel.TextBounds
-        textLabel.Size = UDim2.new(1, -15, 0, textBounds.Y + 20)
-        scrollFrame.CanvasSize = UDim2.new(0, 0, 0, textBounds.Y + 30)
+        textLabel.Size = UDim2.new(1, -20, 0, textBounds.Y + 40)
+        scrollFrame.CanvasSize = UDim2.new(0, 0, 0, textBounds.Y + 60)
     end
     updateTextHeight()
     textLabel:GetPropertyChangedSignal("Text"):Connect(updateTextHeight)
@@ -688,7 +688,7 @@ end)
 
 updateCanvas()
 
--- ==================== ОСНОВНЫЕ ФУНКЦИИ (без изменений) ====================
+-- ==================== ОСНОВНЫЕ ФУНКЦИИ ====================
 
 local function IsVisible(part)
     if not part then return false end
